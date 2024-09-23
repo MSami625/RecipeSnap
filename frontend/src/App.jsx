@@ -1,11 +1,19 @@
-import { useState } from "react";
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignIn from "./Pages/SignIn";
+import SignUp from "./Pages/SignUp";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
   return (
     <>
-      Recipe Snap
-      <h1 className="text-6xl">Share Recipes</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

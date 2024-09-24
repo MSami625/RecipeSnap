@@ -2,7 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
-import Dashboard from "./Pages/Dashboard";
+import Home from "./Pages/Home";
+import ShareRecipe from "./Pages/ShareRecipe";
+import TermsAndConditions from "./Pages/TermsAndConditions";
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/recipeshare" element={<ShareRecipe />} />
+          <Route path="/termsandconditions" element={<TermsAndConditions />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -18,12 +18,16 @@ const SignupConfirmation = ({ message, redirectPath, onClose }) => {
       if (message.status === "fail") {
         toast.error(message.message, {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 2500,
           onClose: () => {
             setIsToastVisible(false);
             onClose();
+            if (redirectPath) {
+              navigateTo(redirectPath);
+            }
           },
         });
+
         return;
       }
 

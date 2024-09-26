@@ -109,3 +109,48 @@ exports.signIn = async (req, res) => {
     });
   }
 };
+
+exports.adminSignIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Please provide both Email and Password",
+      });
+    }
+
+    if (email != process.env.ADMIN_EMAIL) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid Email",
+      });
+    }
+
+    if (password != process.env.ADMIN_PASSWORD) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid Password",
+      });
+    }
+
+    const isAdmin = "admin";
+    const userId = 4;
+
+    const token = jwt.sign({ email, isAdmin, userId }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Sign in successful",
+      token,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
+};

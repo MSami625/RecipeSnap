@@ -4,8 +4,10 @@ import RecipeCard from "../components/RecipeCard.jsx";
 import { Link } from "react-router-dom";
 import apiClient from "../services/apiClient";
 import SignupConfirmation from "../components/notificationToast.jsx";
+import { useNavigate } from "react-router-dom";
 
 const ShareRecipe = () => {
+  const navigateTo = useNavigate();
   const [recipeName, setRecipeName] = useState("");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -27,10 +29,12 @@ const ShareRecipe = () => {
   const [sharedRecipes, setSharedRecipes] = useState([]);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [confirmation, setConfirmation] = useState("");
+  const [fetchedRecipes, setFetchedRecipes] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //  ****change here to toast
     if (!acceptTerms) {
       alert("You must accept the terms and conditions.");
       return;
@@ -42,9 +46,8 @@ const ShareRecipe = () => {
       return;
     }
 
-    // Create a FormData object
+    // multipart form data
     const formData = new FormData();
-
     formData.append("name", recipeName);
     formData.append("description", description);
     formData.append("ingredients", ingredients);
@@ -67,6 +70,7 @@ const ShareRecipe = () => {
     const token = localStorage.getItem("token");
 
     try {
+      // ****change here to toast
       if (!token) {
         alert("You must be logged in to share a recipe.");
         return;
@@ -118,26 +122,39 @@ const ShareRecipe = () => {
     setAcceptTerms(false);
   };
 
-  //   useEffect(() => {
-  //     const fetchSharedRecipes = async () => {
-  //       try {
-  //         const response = await apiClient.get("/recipe/myrecipes");
-  //         if (response.data.status === "fail") {
-  //           alert(response.data.message);
-  //           return;
-  //         }
+  //get users shared recipes on page render
 
-  //         const result = response.data;
-  //         console.log("Shared recipes:", result.data);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    // ******* change here to toast
+    if (!token) {
+      navigateTo("/signin");
+      return;
+    }
 
-  //         setSharedRecipes(result.data);
-  //       } catch (error) {
-  //         console.error("Error fetching shared recipes:", error);
-  //       }
-  //     };
+    const fetchSharedRecipes = async () => {
+      try {
+        const response = await apiClient.get("/recipes/myrecipes", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.data.status === "fail") {
+          alert(response.data.message);
+          return;
+        }
 
-  //     fetchSharedRecipes();
-  //   }, [sharedRecipes]);
+        const result = response.data;
+
+        setFetchedRecipes(result.data);
+      } catch (error) {
+        console.error("Error fetching shared recipes:", error);
+      }
+    };
+
+    fetchSharedRecipes();
+  }, [sharedRecipes]);
+
   return (
     <div>
       {confirmation.status === "success" && (
@@ -149,7 +166,7 @@ const ShareRecipe = () => {
       )}
       <Navbar />
       <div className="max-w-4xl mx-auto p-6 mt-20 bg-white shadow-lg rounded-lg font-poppins">
-        <h1 className="text-3xl font-bold text-center mb-6">
+        <h1 className="text-3xl font-bold font-poppins text-center mb-6">
           Share Your Recipe
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -403,7 +420,7 @@ const ShareRecipe = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#765b40] text-white font-semibold py-3 rounded shadow-lg hover:bg-[#c3c3c3] hover:text-black transition duration-300"
+            className="w-full bg-black border-slate-300 border-2 text-white font-semibold py-3 rounded shadow-lg hover:bg-white hover:text-black transition duration-300 hover:border-2 hover:border-black"
           >
             Share Recipe
           </button>
@@ -415,12 +432,24 @@ const ShareRecipe = () => {
         </p>
       </div>
       <hr className="my-10 border-black" />
-      <h2 className="text-3xl font-bold text-center mb-6 mt-16">
+      <h2 className="text-3xl font-bold font-poppins text-center mb-6 mt-16">
         Your Shared Recipes
       </h2>
+
+      {fetchedRecipes.length === 0 && (
+        <div className="flex flex-col items-center justify-center h-64 bg-gray-100 rounded-lg shadow-lg p-6">
+          <p className="text-xl font-semibold text-gray-700 mb-4">
+            No Recipes Shared
+          </p>
+          <p className="text-gray-500">
+            It seems there are no recipes available at the moment.
+          </p>
+        </div>
+      )}
+
       <div className="w-full bg-gray-100 p-10 rounded-lg">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {sharedRecipes.map((recipe) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+          {fetchedRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>

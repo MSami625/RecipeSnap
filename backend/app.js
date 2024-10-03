@@ -73,4 +73,4 @@ sequelise
     console.log(err);
   });
 
-module.exports = app;
+// module.exports = app;

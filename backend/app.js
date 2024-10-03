@@ -11,7 +11,11 @@ const ReviewRoute = require("./routes/reviewRoute");
 
 // middlewares
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://recipe-snap-nine.vercel.app",
+  })
+);
 app.options("*", cors());
 
 app.use(express.json());

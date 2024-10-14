@@ -186,7 +186,7 @@ const RecipeDetail = () => {
         <div className="flex flex-col md:w-1/2">
           <div className="md:w-full md:pr-4 mb-4 rounded-lg shadow-lg p-2 bg-orange-300">
             <img
-              src={recipe.imagse}
+              src={recipe.image}
               alt={recipe.name}
               className="w-full h-auto rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
             />

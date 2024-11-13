@@ -22,6 +22,20 @@
 - **Hosting:** AWS S3 for static files, AWS EC2 for the backend.
 - **Authentication:** JWT for user authentication.
 
+
+# Test Login Credentials
+Email: test@example.us .
+Password: test
+
+## <-- Some Glimpses of Project --->
+1.
+![Screenshot 2024-11-13 201401](https://github.com/user-attachments/assets/4e33202e-fce2-4300-9aca-cabf9589d734)
+
+2.
+
+![image](https://github.com/user-attachments/assets/14e03753-48a9-4f9a-a944-588632a09169)
+
+
 ## Getting Started
 
 ### Prerequisites

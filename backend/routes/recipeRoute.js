@@ -9,13 +9,12 @@ const upload = multer();
 
 Router.get("/recipes/all", RecipeController.getAllRecipes);
 
-// Router.post(
-//   "/recipe/store",
-//   authenticate,
-//   upload.single("image"),
-//   RecipeController.storeRecipe
-// );
-
+Router.post(
+  "/recipe/store",
+  authenticate,
+  upload.single("image"),
+  RecipeController.storeRecipe
+);
 Router.get("/recipes/myrecipes", authenticate, RecipeController.getMyRecipes);
 Router.get("/recipe/:id", authenticate, RecipeController.getRecipe);
 Router.delete("/recipe/:id", authenticate, RecipeController.deleteRecipe);

@@ -13,7 +13,7 @@ import Profile from "./Pages/Profile";
 import Favorite from "./Pages/Favorite";
 import AdminSignIn from "./Pages/AdminSignIn";
 import AdminDashboard from "./Pages/AdminDashboard";
-import Test from "./components/Test";
+
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
         <Route path="/favorites" element={<Favorite />} />
         <Route path="/adminsignin" element={<AdminSignIn />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/test" element={<Test />} />
+  
         </Routes>
       </BrowserRouter>
     </>

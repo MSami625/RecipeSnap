@@ -1,42 +1,65 @@
-import React from "react";
-import ContentLoader from "react-content-loader";
+import Skeleton from "react-skeleton-loading";
 
 const MyLoader = () => (
-  <ContentLoader viewBox="0 0 800 600" speed={2}>
-    <rect x="0" y="0" rx="5" ry="5" width="100%" height="40" />
+  <div>
+  
+    <div className="bg-gray-300 p-4 h-20">
+     
+    </div>
 
-    {Array.from({ length: 6 }).map((_, index) => (
-      <rect
-        key={index}
-        x={(index % 3) * 260}
-        y={Math.floor(index / 3) * 150 + 50}
-        rx="5"
-        ry="5"
-        width="240"
-        height="140"
-      />
-    ))}
 
-    <rect x="0" y={350} rx="5" ry="5" width="100%" height="40" />
+    <div className="mt-10 font-poppins flex flex-col md:flex-row gap-16 px-12 md:px-10">
+      {/* Main Content Section */}
+      <div className="md:w-4/5 w-full">
+        
+        <section className="mb-10">
+          <h2 className="text-3xl font-bold mb-4">
+            <Skeleton width={150  } height={30} />
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} width="240px" height="140px" />
+            ))}
+          </div>
+        </section>
 
-    {Array.from({ length: 3 }).map((_, index) => (
-      <rect
-        key={index}
-        x={(index % 3) * 260}
-        y={Math.floor(index / 3) * 150 + 400}
-        rx="5"
-        ry="5"
-        width="240"
-        height="140"
-      />
-    ))}
+       
+        <section className="mb-10">
+          <h2 className="text-3xl font-bold mb-4 text-indigo-700">
+            <Skeleton width="60%" height={30} />
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} width="240px" height="140px" />
+            ))}
+          </div>
+        </section>
+      </div>
 
-    <rect x="600" y="50" rx="5" ry="5" width="180" height="40" />
-    <rect x="600" y="100" rx="5" ry="5" width="180" height="40" />
-    <rect x="600" y="150" rx="5" ry="5" width="180" height="40" />
-    <rect x="600" y="200" rx="5" ry="5" width="180" height="40" />
-    <rect x="600" y="250" rx="5" ry="5" width="180" height="40" />
-  </ContentLoader>
+     
+      <div className="md:w-1/4 mt-6 w-full">
+        <div className="bg-gray-100 p-4 rounded-lg shadow">
+         
+          <h2 className="text-xl font-bold mb-4">
+            <Skeleton width="100%" height={30} />
+          </h2>
+          <Skeleton width="100%" height={40} className="mb-4" />
+          
+         
+          <Skeleton width="100%" height={40} className="mb-4" />
+          
+       
+          <Skeleton width="100%" height={40} className="mb-4" />
+
+   
+          <Skeleton width="100%" height={40} className="mb-4" />
+
+         
+          <Skeleton width="100%" height={40} />
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 export default MyLoader;

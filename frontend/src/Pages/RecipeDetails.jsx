@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import {toast, ToastContainer} from 'react-toastify';
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -144,7 +145,17 @@ const RecipeDetail = () => {
         }
       );
       setIsFavorite(!isFavorite);
-      alert(isFavorite ? "Removed from favorites!" : "Added to favorites!");
+     
+      toast.success(isFavorite ? "Removed from favorites!" : "Added to favorites!",{
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error("Error toggling favorite:", error);
       alert("Failed to toggle favorite. Please try again.");
@@ -182,7 +193,10 @@ const RecipeDetail = () => {
   return (
     <>
       <Navbar />
+
+     
       <div className="flex gap-10 font-poppins mt-24 flex-col md:flex-row p-10">
+
         <div className="flex flex-col md:w-1/2">
           <div className="md:w-full md:pr-4 mb-4 rounded-lg shadow-lg p-2 bg-orange-300">
             <img
@@ -356,6 +370,7 @@ const RecipeDetail = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

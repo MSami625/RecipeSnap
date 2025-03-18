@@ -51,6 +51,12 @@ const SignIn = () => {
     }
   };
 
+  // Function to fill the dummy credentials
+  const fillDummyCredentials = () => {
+    setEmail("test@example.us");
+    setPassword("test");
+  };
+
   return (
     <div className="flex font-poppins items-center justify-center min-h-screen bg-gray-100">
       {confirmation.status === "success" && (
@@ -130,7 +136,17 @@ const SignIn = () => {
           >
             Sign In
           </button>
+
+        
+          <button
+            type="button"
+            onClick={fillDummyCredentials}
+            className="w-full py-2 mt-4 text-white bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-300"
+          >
+            Fill Dummy Credentials
+          </button>
         </form>
+
         <p className="mt-4 text-sm text-center text-gray-600">
           Don’t have an account?{" "}
           <Link

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import apiClient from "../services/apiClient";
 import SignupConfirmation from "../components/notificationToast.jsx";
 import { useNavigate } from "react-router-dom";
+import {toast, ToastContainer} from 'react-toastify';
 
 const ShareRecipe = () => {
   const navigateTo = useNavigate();
@@ -36,13 +37,13 @@ const ShareRecipe = () => {
 
     //  ****change here to toast
     if (!acceptTerms) {
-      alert("You must accept the terms and conditions.");
+      toast.warning("You must accept the terms and conditions.");
       return;
     }
 
     // Check if the image file is provided
     if (!imageFile) {
-      alert("You must upload an image.");
+       toast.warning("Please upload an image file to share a recipe.");
       return;
     }
 
@@ -84,7 +85,7 @@ const ShareRecipe = () => {
       });
 
       if (response.data.status === "fail") {
-        alert(response.data.message);
+       toast.error(response.data.message);
         return;
       }
 
@@ -93,6 +94,7 @@ const ShareRecipe = () => {
 
       setConfirmation(result.message);
       setSharedRecipes((prevRecipes) => [...prevRecipes, result.data]);
+      toast.success("Recipe shared successfully!");
       resetForm();
     } catch (error) {
       console.error("Error submitting recipe:", error);
@@ -157,6 +159,7 @@ const ShareRecipe = () => {
 
   return (
     <div>
+      <ToastContainer />
       {confirmation.status === "success" && (
         <SignupConfirmation message={confirmation} />
       )}
